@@ -1,0 +1,16 @@
+*1 heading
+
+this is **bold** text
+this is ~~italics~~ text
+
+- item 1
+- item 2
+- item 3
+
+> this is a code block
+> which has multiple lines
+> of code
+
+# item 1
+# item 2
+# item 3
