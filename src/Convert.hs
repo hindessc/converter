@@ -1,4 +1,4 @@
-module Convert where
+module Convert (convert) where
 
 import qualified Markup
 import qualified Html
@@ -28,9 +28,8 @@ convertText (x:xs) =
     case x of
         Markup.C c -> c : convertText xs
         
-        Markup.BoldStart -> "<b>" <> convertText xs
-        Markup.BoldEnd -> "</b>" <> convertText xs
+        Markup.BoldStart -> Html.bold_ "Start" <> convertText xs
+        Markup.BoldEnd -> Html.bold_ "End"<> convertText xs
 
-        Markup.ItalicsStart -> "<i>" <> convertText xs
-        Markup.ItalicsEnd -> "</i>" <> convertText xs
-
+        Markup.ItalicsStart -> Html.italics_ "Start" <> convertText xs
+        Markup.ItalicsEnd -> Html.italics_ "End" <> convertText xs

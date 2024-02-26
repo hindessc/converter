@@ -54,3 +54,11 @@ getString (Structure s) = s
 
 lineBreak :: [String] -> String
 lineBreak = intercalate "<br>"
+
+bold_ :: String -> String
+bold_ "Start" = "<b>"
+bold_ "End" = "</b>"
+
+italics_ :: String -> String
+italics_ "Start" = "<i>"
+italics_ "End" = "</i>"
