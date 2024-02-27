@@ -1,7 +1,10 @@
 module Markup where
 
+import Prelude hiding (String)
 import Numeric.Natural
 import Data.Maybe
+
+type String = [Char]
 
 type Document = [Structure]
 
