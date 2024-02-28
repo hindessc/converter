@@ -1,15 +1,37 @@
-module Convert (convert) where
+module Convert where
 
+import Numeric.Natural
 import qualified Markup
 import qualified Html
 
-convert :: String -> (Markup.Document, String)
-convert input = (document, Html.html_ "Title" $ concatMap (Html.getString . process) document)
+newtype HtmlText = HtmlText String
+newtype ConsoleText = ConsoleText String
+
+data Text
+    = HText HtmlText
+    | CText ConsoleText
+
+data ResultType
+    = HTML
+    | CONSOLE
+
+class Result a where
+    heading :: Natural -> a -> String
+
+instance Result HtmlText where
+    heading n (HtmlText s) = Html.getString $ Html.heading_ n s
+
+convert :: ResultType -> String -> (Markup.Document, String)
+convert option input = (document, Html.html_ "Title" $ concatMap (process option) document)
     where document = Markup.parse input
 
-process :: Markup.Structure -> Html.Structure
-process structure =
+--process :: ResultType -> Markup.Structure -> Html.Structure
+process :: ResultType -> Markup.Structure -> String
+process res structure =
     case structure of
+        Markup.Heading num content -> heading num $ func $ convertText content
+        _ -> ""
+{-
         (Markup.Heading num content) -> Html.heading_ num $ convertText content
 
         (Markup.Paragraph content) -> Html.paragraph_ $ map convertText content
@@ -21,6 +43,11 @@ process structure =
         (Markup.CodeBlock code) -> Html.code_ $ map convertText code
 
         _ -> Html.Structure ""
+-}
+    where
+        func =
+            case res of
+                HTML -> HtmlText
 
 convertText :: Markup.Text -> String
 convertText [] = ""

@@ -14,6 +14,8 @@ type Tag = String
 
 type Title = String
 
+newtype Text = Text String
+
 
 
 html_ :: Title -> String -> String
