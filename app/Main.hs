@@ -34,7 +34,7 @@ main = do
             pure stdin
             
     hGetContents origin >>= \file ->
-        print $ convert file
+        print $ convert HTML file
 
 parse ::[String] -> [Argument]
 parse args =
