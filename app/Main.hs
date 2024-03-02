@@ -32,9 +32,25 @@ main = do
             in openFile file ReadMode
         else
             pure stdin
-            
+    
+    let option = 
+            if not (null output) then
+                HTML
+            else
+                CONSOLE
+
+    destin <-
+        if not (null output) then
+            let (Output file) = head output
+            in openFile file WriteMode
+        else
+            pure stdout
+
     hGetContents origin >>= \file ->
-        print $ convert HTML file
+        hPutStr destin $ convert option file
+    
+    hClose destin
+    hClose origin
 
 parse ::[String] -> [Argument]
 parse args =
