@@ -62,6 +62,7 @@ library
         Markup
         Html
         Convert
+        Console
     -- Modules included in this library but not exported.
     -- other-modules:
 

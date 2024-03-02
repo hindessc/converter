@@ -16,8 +16,6 @@ type Title = String
 
 newtype Text = Text String
 
-
-
 html_ :: Title -> String -> String
 html_ title content = addTag "html" $ (addTag "title" title) <> (addTag "body" content)
 
